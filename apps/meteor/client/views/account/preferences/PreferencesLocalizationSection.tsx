@@ -6,15 +6,17 @@ import React, { useMemo } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+// apps/meteor/client/views/account/preferences/PreferencesLocalizationSection.tsx
+
 const PreferencesLocalizationSection = () => {
 	const { t } = useTranslation();
 	const languages = useLanguages();
-
 	const { control } = useFormContext();
 
 	const languageOptions = useMemo(() => {
 		const mapOptions: SelectOption[] = languages.map(({ key, name }) => [key, name]);
-		mapOptions.sort(([a], [b]) => a.localeCompare(b));
+		// sorted the mapOptions based on the name rather than key , this sorts the language correctly in the alphabetical order
+		mapOptions.sort(([, nameA], [, nameB]) => nameA.localeCompare(nameB));
 		return mapOptions;
 	}, [languages]);
 
